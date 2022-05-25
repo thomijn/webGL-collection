@@ -1,10 +1,10 @@
-import React, { Suspense, useState, useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { Suspense, useState, useEffect, useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 import './styles.css'
 import Model from './Model'
 import { OrbitControls, useDetectGPU } from '@react-three/drei'
 import { EffectComposer, DepthOfField } from '@react-three/postprocessing'
-import useGPUTier from './hooks/useGPUTier'
+import * as THREE from 'three'
 
 const App = () => {
   const [orientation, setOrientation] = useState({
@@ -12,6 +12,7 @@ const App = () => {
     gamma: null,
     beta: null
   })
+  const ref = useRef()
 
   useEffect(() => {
     if (window.DeviceOrientationEvent) {
@@ -39,9 +40,10 @@ const App = () => {
         <fog attach="fog" args={['black', 15, 20]} />
         <ambientLight />
         <Suspense fallback={null}>
-          <Model orientation={orientation} />
+          <Model boxRef={ref} />
         </Suspense>
         <OrbitControls />
+        <HiddenBox orientation={orientation} ref={ref} />
 
         <EffectComposer>
           <DepthOfField focusDistance={0} focalLength={0.03} bokehScale={1.5} height={480} />
@@ -55,5 +57,24 @@ const App = () => {
     </Suspense>
   )
 }
+
+const HiddenBox = React.forwardRef((props, ref) => {
+  useFrame(({ mouse }) => {
+    const vec2 = new THREE.Vector3(props.orientation.gamma / 20, 2, (props.orientation.beta - 45) / 10)
+    ref.current.position.lerp(vec2, 0.08)
+    // ref.current.position.x = (ref.current.position.x - mouse.x * 10 + mouse.y * 6) * 0.05
+    // ref.current.position.z = (ref.current.position.z - mouse.y * 10) * 0.05
+  })
+
+  return (
+    <group ref={ref}>
+      <pointLight position={[0, 2, -6]} intensity={1} color="#fff" />
+      <mesh>
+        <sphereBufferGeometry args={[0.2, 16, 16]} />
+        <meshPhongMaterial color="white" />
+      </mesh>
+    </group>
+  )
+})
 
 export default App

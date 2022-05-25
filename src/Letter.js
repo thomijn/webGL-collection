@@ -1,12 +1,14 @@
 import { Text3D } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { useRef, useMemo } from 'react'
+import { useRef, useState } from 'react'
 import * as THREE from 'three'
 import font from './font.json'
 
 export const Letter = ({ idx, boxRef }) => {
   const ref = useRef()
+
+  const [letter, setfirst] = useState(String.fromCharCode(Math.floor(Math.random() * 26) + 65).toUpperCase())
 
   useFrame(({ clock }) => {
     const boxPos = new THREE.Vector3(boxRef.current?.position.x + 15, boxRef.current?.position.y, boxRef.current?.position.z + 15)
@@ -54,7 +56,7 @@ export const Letter = ({ idx, boxRef }) => {
       {...config}
       position={[x * boxSize, 0, z * boxSize]}>
       {/* <boxBufferGeometry args={[boxSize, boxSize, boxSize]} /> */}
-      {String.fromCharCode(Math.floor(Math.random() * 26) + 65).toUpperCase()}
+      {letter}
       <meshStandardMaterial color="black" />
     </Text3D>
   )
