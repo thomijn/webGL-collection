@@ -14,27 +14,27 @@ const App = () => {
   })
   const ref = useRef()
 
-  //   useEffect(() => {
-  //     if (window.DeviceOrientationEvent) {
-  //       window.addEventListener('deviceorientation', (e) => {
-  //         setOrientation({
-  //           alpha: e.alpha,
-  //           beta: e.beta,
-  //           gamma: e.gamma
-  //         })
-  //       })
-  //     } else {
-  //       setOrientation({ beta: 'not supported' })
-  //     }
-  //   }, [])
+  useEffect(() => {
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', (e) => {
+        setOrientation({
+          alpha: e.alpha,
+          beta: e.beta,
+          gamma: e.gamma
+        })
+      })
+    } else {
+      setOrientation({ beta: 'not supported' })
+    }
+  }, [])
 
   return (
     <Suspense fallback={null}>
-      <div style={{ position: 'absolute', top: 0, color: '#fff', zIndex: 10 }}>
+      {/* <div style={{ position: 'absolute', top: 0, color: '#fff', zIndex: 10 }}>
         <h3>gamma: {orientation.gamma}</h3>
         <h3>alpha: {orientation.alpha}</h3>
         <h3>beta: {orientation.beta}</h3>
-      </div>
+      </div> */}
       <Canvas camera={{ position: [-5, 2, 15], fov: 30 }}>
         <color attach="background" args={['#000']} />
         <fog attach="fog" args={['black', 15, 20]} />
