@@ -60,7 +60,7 @@ const App = () => {
 
 const HiddenBox = React.forwardRef((props, ref) => {
   useFrame(({ mouse }) => {
-    const vec2 = new THREE.Vector3(Math.round(props.orientation.gamma / 20), 2, Math.round((props.orientation.beta - 45) / 10))
+    const vec2 = new THREE.Vector3(Math.round(mouse.x * 15), 2, Math.round(mouse.y * -15))
     ref.current.position.lerp(vec2, 0.08)
     // ref.current.position.x = (ref.current.position.x - mouse.x * 10 + mouse.y * 6) * 0.05
     // ref.current.position.z = (ref.current.position.z - mouse.y * 10) * 0.05
