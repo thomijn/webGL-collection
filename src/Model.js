@@ -17,21 +17,21 @@ export default function Model(props) {
     <group ref={group} {...props} dispose={null}>
       <HiddenBox orientation={props.orientation} ref={ref} />
 
-      <group position={[-15, 0, -15]}>
-        {/* <mesh castShadow receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} /> */}
+      {/* <group position={[-15, 0, -15]}>
+        <mesh castShadow receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} />
         {Array(1000)
           .fill()
           .map((i, idx) => {
-            return <Letter boxRef={ref} idx={idx} />
+            return <Letter key={idx} boxRef={ref} idx={idx} />
           })}
-      </group>
+      </group> */}
     </group>
   )
 }
 
 const HiddenBox = React.forwardRef((props, ref) => {
   useFrame(({ mouse }) => {
-    const vec2 = new THREE.Vector3(props.orientation.gamma, 2, 0)
+    const vec2 = new THREE.Vector3(props.orientation.gamma / 20, 2, props.orientation.beta - 45 / 20)
     ref.current.position.lerp(vec2, 0.08)
     // ref.current.position.x = (ref.current.position.x - mouse.x * 10 + mouse.y * 6) * 0.05
     // ref.current.position.z = (ref.current.position.z - mouse.y * 10) * 0.05
