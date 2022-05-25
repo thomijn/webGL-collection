@@ -14,19 +14,19 @@ const App = () => {
   })
   const ref = useRef()
 
-  useEffect(() => {
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', (e) => {
-        setOrientation({
-          alpha: e.alpha,
-          beta: e.beta,
-          gamma: e.gamma
-        })
-      })
-    } else {
-      setOrientation({ beta: 'not supported' })
-    }
-  }, [])
+  //   useEffect(() => {
+  //     if (window.DeviceOrientationEvent) {
+  //       window.addEventListener('deviceorientation', (e) => {
+  //         setOrientation({
+  //           alpha: e.alpha,
+  //           beta: e.beta,
+  //           gamma: e.gamma
+  //         })
+  //       })
+  //     } else {
+  //       setOrientation({ beta: 'not supported' })
+  //     }
+  //   }, [])
 
   return (
     <Suspense fallback={null}>
@@ -40,9 +40,9 @@ const App = () => {
         <OrbitControls />
         <HiddenBox orientation={orientation} ref={ref} />
 
-        <EffectComposer>
+        {/* <EffectComposer>
           <DepthOfField focusDistance={0} focalLength={0.03} bokehScale={1.5} height={480} />
-        </EffectComposer>
+        </EffectComposer> */}
 
         {/* <directionalLight position={[10, 10, 0]} intensity={1.5} />
     <directionalLight position={[-10, 10, 5]} intensity={1} />
