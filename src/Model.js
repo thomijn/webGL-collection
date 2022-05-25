@@ -18,7 +18,7 @@ export default function Model(props) {
       <HiddenBox orientation={props.orientation} ref={ref} />
 
       <group position={[-15, 0, -15]}>
-        <mesh castShadow receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} />
+        {/* <mesh castShadow receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} /> */}
         {Array(1000)
           .fill()
           .map((i, idx) => {
