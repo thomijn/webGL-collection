@@ -42,7 +42,7 @@ const App = () => {
         <Suspense fallback={null}>
           <Model boxRef={ref} />
         </Suspense>
-        <OrbitControls />
+        {/* <OrbitControls /> */}
         <HiddenBox orientation={orientation} ref={ref} />
 
         {/* <EffectComposer>
