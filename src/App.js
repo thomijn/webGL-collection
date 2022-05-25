@@ -30,11 +30,6 @@ const App = () => {
 
   return (
     <Suspense fallback={null}>
-      <div style={{ position: 'absolute', top: 0, color: '#fff', zIndex: 10 }}>
-        <h3>gamma: {orientation.gamma}</h3>
-        <h3>alpha: {orientation.alpha}</h3>
-        <h3>beta: {orientation.beta}</h3>
-      </div>
       <Canvas camera={{ position: [-5, 2, 15], fov: 30 }}>
         <color attach="background" args={['#000']} />
         <fog attach="fog" args={['black', 15, 20]} />
@@ -60,7 +55,7 @@ const App = () => {
 
 const HiddenBox = React.forwardRef((props, ref) => {
   useFrame(({ mouse }) => {
-    const vec2 = new THREE.Vector3(props.orientation.gamma / 20, 2, (props.orientation.beta - 45) / 10)
+    const vec2 = new THREE.Vector3(Math.round(mouse.x * 15), 2, Math.round(mouse.x * -15))
     ref.current.position.lerp(vec2, 0.08)
     // ref.current.position.x = (ref.current.position.x - mouse.x * 10 + mouse.y * 6) * 0.05
     // ref.current.position.z = (ref.current.position.z - mouse.y * 10) * 0.05
@@ -71,7 +66,7 @@ const HiddenBox = React.forwardRef((props, ref) => {
       <pointLight position={[0, 2, -6]} intensity={1} color="#fff" />
       <mesh>
         <sphereBufferGeometry args={[0.2, 16, 16]} />
-        <meshPhongMaterial color="white" />
+        <meshBasicMaterial color="white" />
       </mesh>
     </group>
   )
